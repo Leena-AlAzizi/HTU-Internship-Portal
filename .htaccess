@@ -1,0 +1,6 @@
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+DirectoryIndex login.php index.php index.html
