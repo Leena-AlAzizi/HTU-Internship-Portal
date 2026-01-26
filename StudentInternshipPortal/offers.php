@@ -244,12 +244,13 @@ $stmt_rejected->close();
                     </div>
                 </div>
                 <label for="" class="font-weight-600 font-size-14px mt-4"><i class="bi bi-stars me-1"></i> New Offers</label>
-                <?php if ($pending_offers->num_rows > 0): ?>
+                <div class = "row">
+                    <?php if ($pending_offers->num_rows > 0): ?>
                     <?php while ($offer = $pending_offers->fetch_assoc()): ?>
-                        <div class="d-flex margin-top-30px">
+                        <div class="d-flex margin-top-30px col-md-6">
                             <img src="<?= (!empty($offer['image']) && file_exists('../' . $offer['image'])) ? '../' . $offer['image'] : '../img/default_company.png' ?>"
                                 alt="" 
-                                class="width-7per me-4 border-radius-50per img-fit">
+                                class="width-15per me-4 border-radius-50per img-fit">
 
                             <div class="d-flex flex-column">
                                 <label class="font-size-14px font-weight-600">
@@ -353,14 +354,15 @@ $stmt_rejected->close();
                 <?php else: ?>
                     <p class="font-size-12px color-876363 mt-3 ms-4"><i class="bi bi-bell-slash me-1"></i>No new pending offers.</p>
                 <?php endif; ?>
+                </div>
                 <label for="" class="font-weight-600 font-size-14px mt-5"><i class="bi bi-hourglass-split me-2"></i>In-Process Offers</label>
                 <div class="row">
                     <?php if($interview_offers->num_rows > 0): ?>
                     <?php while($offer = $interview_offers->fetch_assoc()): ?>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="d-flex margin-top-30px">
                                 <img src="<?= (!empty($offer['image']) && file_exists('../' . $offer['image'])) ? '../' . $offer['image'] : '../img/default_company.png' ?>" 
-                                    alt="" class="width-20per me-4 border-radius-50per img-fit">
+                                    alt="" class="width-15per me-4 border-radius-50per img-fit">
 
                                 <div class="d-flex flex-column">
                                     <label class="font-size-14px font-weight-600">
@@ -456,12 +458,12 @@ $stmt_rejected->close();
                 </div>
 
                 <label for="" class="font-weight-600 font-size-14px margin-top-70px"><i class="bi bi-x-circle me-2"></i>Rejection Received</label>
-
-                <?php if($rejected_offers->num_rows > 0): ?>
+                <div class="row">
+                    <?php if($rejected_offers->num_rows > 0): ?>
                     <?php while($offer = $rejected_offers->fetch_assoc()): ?>
-                        <div class="d-flex margin-top-30px">
+                        <div class="d-flex margin-top-30px col-md-6">
                             <img src="<?= (!empty($offer['image']) && file_exists('../' . $offer['image'])) ? '../' . $offer['image'] : '../img/default_company.png' ?>" 
-                                alt="" class="width-7per me-4 border-radius-50per img-fit">
+                                alt="" class="width-15per me-4 border-radius-50per img-fit">
 
                             <div class="d-flex flex-column">
                                 <label class="font-size-14px font-weight-600">
@@ -554,7 +556,7 @@ $stmt_rejected->close();
                 <?php else: ?>
                     <p class="font-size-13px color-876363 mt-3 ms-4"><i class="bi bi-bell-slash me-1"></i>No rejected offers.</p>
                 <?php endif; ?>
-
+                </div>
               </div>
             </div>
         </div>
