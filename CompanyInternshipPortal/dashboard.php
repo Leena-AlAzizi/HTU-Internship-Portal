@@ -171,7 +171,7 @@ $stmt->close();
                         </tr>
                     </thead>
                 </table>
-                <div class="scroll-y-axis max-h-450px">
+                <div class="scroll-y-axis max-h-300px">
                     <table class="table tablebody font-size-13px">
                         <tbody>
                             <?php if (!empty($offers)): ?>

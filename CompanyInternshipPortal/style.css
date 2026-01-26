@@ -13403,6 +13403,10 @@ tbody tr:last-child td:last-child {
   max-height: 450px;
 }
 
+.max-h-300px {
+  max-height: 300px;
+}
+
 .scroll-y-axis {
   overflow-y: auto;
 }
