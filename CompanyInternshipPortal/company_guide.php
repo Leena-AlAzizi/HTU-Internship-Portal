@@ -53,7 +53,7 @@ $open_offers_count = $conn->query("SELECT COUNT(offer_id) AS total FROM offers W
                         <ul class="navbar-nav flex-column justify-content-between h-100 w-100">
                             <div>
                                 <li class="nav-item"><a href="dashboard.php" class="btn w-100 text-start"><i class="bi bi-house-door"></i> <label class="ms-2">Dashboard</label></a></li>
-                                <li class="nav-item"><a href="offers.php" class="btn w-100 text-start"><i class="bi bi-briefcase"></i> <label class="ms-2">Offers</label></a></li>
+                                <li class="nav-item"><a href="offers.php" class="btn w-100 text-start"><i class="bi bi-briefcase"></i> <label class="ms-2">Training Opportunities</label></a></li>
                                 <li class="nav-item"><a href="students.php" class="btn w-100 text-start"><i class="bi bi-people"></i> <label class="ms-2">Students</label></a></li>
                                 <li class="nav-item"><a href="profile.php" class="btn w-100 text-start"><i class="bi bi-person"></i> <label class="ms-2">Profile</label></a></li>
                                 <li class="nav-item"><a href="company_guide.php" class="btn w-100 text-start bg-color-F5F0F0"><i class="bi bi-info-circle-fill"></i> <label class="ms-2">Portal Guide</label></a></li>
@@ -67,7 +67,7 @@ $open_offers_count = $conn->query("SELECT COUNT(offer_id) AS total FROM offers W
             <div class="right-side col-md-10 p-4">
                 <div class="d-flex flex-column">
                     <label class="font-weight-600 font-size-22px">Portal Guide & FAQ</label>
-                    <label class="font-size-12px mt-3 color-5f5f5f">Your quick reference for recruiting and offer management.</label>
+                    <label class="font-size-12px mt-3 color-5f5f5f">Your quick reference for recruiting and Training Opportunities management.</label>
 
                     <div class="mt-4 p-4 bg-color-f4f4f4 border-radius-10px">
                         <h4 class="font-weight-600 color-876363 mb-3">Partnership Vision</h4>
@@ -90,7 +90,7 @@ $open_offers_count = $conn->query("SELECT COUNT(offer_id) AS total FROM offers W
                                     </h2>
                                     <div id="collapseC1" class="accordion-collapse collapse" data-bs-parent="#companyGuideAccordion">
                                         <div class="accordion-body font-size-13px color-5f5f5f">
-                                            Go to the <strong>Offers Page</strong>. Click the <strong>"Add New Offer"</strong> button. Fill in all required details. Once submitted, the offer will initially be listed as <strong>Pending</strong> review by the university staff.
+                                            Go to the <strong>Training Opportunities Page</strong>. Click the <strong>"Add New Training Opportunity"</strong> button. Fill in all required details. Once submitted, the Training Opportunity will initially be listed as <strong>Pending</strong> review by the university staff.
                                         </div>
                                     </div>
                                 </div>

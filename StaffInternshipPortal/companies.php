@@ -115,7 +115,7 @@ $filter_separator = !empty($current_filters) ? '&' : '';
                 <div class="d-flex flex-column">
                     <div class="d-flex justify-content-between">
                         <label for="" class="font-weight-600 font-size-22px">Companies</label>
-                        <button type="button" class="btn font-size-12px btn-E51A1A" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i class="bi bi-plus me-2"></i>Add New Offer</button>
+                        <button type="button" class="btn font-size-12px btn-E51A1A" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i class="bi bi-plus me-2"></i>Add New Company</button>
                         <div class="offcanvas offcanvas-end width-600px" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                             <div class="offcanvas-header">
                                 <div class="d-flex flex-column px-4">

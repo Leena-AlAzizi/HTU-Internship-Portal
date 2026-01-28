@@ -67,7 +67,7 @@ $company_image = (!empty($company['image']) && file_exists("../" . $company['ima
                             <li class="nav-item">
                                 <a href="offers.php" class="btn w-100 text-start">
                                     <i class="bi  bi-briefcase"></i>
-                                    <label for="" class="ms-2">Offers</label>
+                                    <label for="" class="ms-2">Training Opportunities</label>
                                 </a>
                             </li>
                             <li class="nav-item">

@@ -114,7 +114,7 @@ $current_type_filter = htmlspecialchars($training_type_filter);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Offers</title>
+    <title>Training Opportunities</title>
     <link rel="icon" type="image/x-icon" href="../img/htu_logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
@@ -152,7 +152,7 @@ $current_type_filter = htmlspecialchars($training_type_filter);
                             <li class="nav-item">
                                 <a href="offers.php" class="btn w-100 text-start bg-color-F5F0F0">
                                     <i class="bi  bi-briefcase-fill"></i>
-                                    <label for="" class="ms-2">Offers</label>
+                                    <label for="" class="ms-2">Training Opportunities</label>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -187,87 +187,87 @@ $current_type_filter = htmlspecialchars($training_type_filter);
             <div class="right-side col-md-10 p-4">
               <div class="d-flex flex-column">
                 <div class="d-flex justify-content-between">
-                  <label for="" class="font-weight-600 font-size-22px">Offers</label>
-                  <button type="button" class="btn font-size-12px btn-E51A1A" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i class="bi bi-plus me-2"></i>Add New Offer</button>
+                  <label for="" class="font-weight-600 font-size-22px">Training Opportunities</label>
+                  <button type="button" class="btn font-size-12px btn-E51A1A" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i class="bi bi-plus me-2"></i>Add New Training Opportunity</button>
                   <div class="offcanvas offcanvas-end width-600px" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                     <div class="offcanvas-header">
                         <div class="d-flex flex-column px-4">
-                        <label class="font-weight-600 font-size-22px">New Internship Offer</label>
+                        <label class="font-weight-600 font-size-22px">New Training Opportunity</label>
                         </div>
                     </div>
 
-<div class="offcanvas-body pt-0">
-    <form method="POST" action="">
-        <div class="px-4">
-            
-            <div class="row mt-3">
-                <div class="col-md-7 mb-3">
-                    <label class="form-label font-size-13px color-876363 font-weight-600">Job Title</label>
-                    <input type="text" name="job_title" class="form-control font-size-13px" placeholder="e.g. Graphic Designer" required>
-                </div>
-                <div class="col-md-5 mb-3">
-                    <label class="form-label font-size-13px color-876363 font-weight-600">Training Type</label>
-                    <select name="training_type" class="form-select font-size-13px" required>
-                        <option value="Full-time">Full-time</option>
-                        <option value="Part-time">Part-time</option>
-                        <option value="Remote">Remote</option>
-                        <option value="Hybrid">Hybrid</option>
-                    </select>
-                </div>
-            </div>
+                    <div class="offcanvas-body pt-0">
+                        <form method="POST" action="">
+                            <div class="px-4">
+                                
+                                <div class="row mt-3">
+                                    <div class="col-md-7 mb-3">
+                                        <label class="form-label font-size-13px color-876363 font-weight-600">Job Title</label>
+                                        <input type="text" name="job_title" class="form-control font-size-13px" placeholder="e.g. Graphic Designer" required>
+                                    </div>
+                                    <div class="col-md-5 mb-3">
+                                        <label class="form-label font-size-13px color-876363 font-weight-600">Training Type</label>
+                                        <select name="training_type" class="form-select font-size-13px" required>
+                                            <option value="Full-time">Full-time</option>
+                                            <option value="Part-time">Part-time</option>
+                                            <option value="Remote">Remote</option>
+                                            <option value="Hybrid">Hybrid</option>
+                                        </select>
+                                    </div>
+                                </div>
 
-            <div class="row">
-                <div class="col-md-7 mb-3">
-                    <label class="form-label font-size-13px color-876363 font-weight-600">Location</label>
-                    <input type="text" name="location" class="form-control font-size-13px" placeholder="City, Area" required>
-                </div>
-                <div class="col-md-5 mb-3">
-                    <label class="form-label font-size-13px color-876363 font-weight-600">Duration</label>
-                    <input type="text" name="training_duration" class="form-control font-size-13px" placeholder="e.g. 3 Months" required>
-                </div>
-            </div>
+                                <div class="row">
+                                    <div class="col-md-7 mb-3">
+                                        <label class="form-label font-size-13px color-876363 font-weight-600">Location</label>
+                                        <input type="text" name="location" class="form-control font-size-13px" placeholder="City, Area" required>
+                                    </div>
+                                    <div class="col-md-5 mb-3">
+                                        <label class="form-label font-size-13px color-876363 font-weight-600">Duration</label>
+                                        <input type="text" name="training_duration" class="form-control font-size-13px" placeholder="e.g. 3 Months" required>
+                                    </div>
+                                </div>
 
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <label class="form-label font-size-13px color-876363 font-weight-600">Salary?</label>
-                    <select name="salary" class="form-select font-size-13px" required>
-                        <option value="0">No (Unpaid)</option>
-                        <option value="1">Yes (Paid)</option>
-                    </select>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label class="form-label font-size-13px color-876363 font-weight-600">Max Applicants</label>
-                    <input type="number" name="max_applicants" class="form-control font-size-13px" placeholder="0" required>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label class="form-label font-size-13px color-876363 font-weight-600">Deadline</label>
-                    <input type="date" name="application_deadline" class="form-control font-size-13px" required>
-                </div>
-            </div>
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label font-size-13px color-876363 font-weight-600">Salary?</label>
+                                        <select name="salary" class="form-select font-size-13px" required>
+                                            <option value="0">No (Unpaid)</option>
+                                            <option value="1">Yes (Paid)</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label font-size-13px color-876363 font-weight-600">Max Applicants</label>
+                                        <input type="number" name="max_applicants" class="form-control font-size-13px" placeholder="0" required>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label font-size-13px color-876363 font-weight-600">Deadline</label>
+                                        <input type="date" name="application_deadline" class="form-control font-size-13px" required>
+                                    </div>
+                                </div>
 
-            <div class="mb-3">
-                <label class="form-label font-size-13px color-876363 font-weight-600">About the Internship</label>
-                <textarea name="about_internship" class="form-control font-size-13px" rows="3" placeholder="Briefly describe the internship program..." required></textarea>
-            </div>
+                                <div class="mb-3">
+                                    <label class="form-label font-size-13px color-876363 font-weight-600">About the Internship</label>
+                                    <textarea name="about_internship" class="form-control font-size-13px" rows="3" placeholder="Briefly describe the internship program..." required></textarea>
+                                </div>
 
-            <div class="mb-3">
-                <label class="form-label font-size-13px color-876363 font-weight-600">Responsibilities</label>
-                <textarea name="responsibilities" class="form-control font-size-13px" rows="3" placeholder="List daily tasks and responsibilities..." required></textarea>
-            </div>
+                                <div class="mb-3">
+                                    <label class="form-label font-size-13px color-876363 font-weight-600">Responsibilities</label>
+                                    <textarea name="responsibilities" class="form-control font-size-13px" rows="3" placeholder="List daily tasks and responsibilities..." required></textarea>
+                                </div>
 
-            <div class="mb-4">
-                <label class="form-label font-size-13px color-876363 font-weight-600">Required Skills / Requirements</label>
-                <textarea name="requirements" class="form-control font-size-13px" rows="3" placeholder="Soft skills, tools, or academic background..." required></textarea>
-            </div>
+                                <div class="mb-4">
+                                    <label class="form-label font-size-13px color-876363 font-weight-600">Required Skills / Requirements</label>
+                                    <textarea name="requirements" class="form-control font-size-13px" rows="3" placeholder="Soft skills, tools, or academic background..." required></textarea>
+                                </div>
 
-            <div class="mt-4  d-flex justify-content-end pb-2">
-                <button type="button" class="btn px-4 me-2 btn-E5E8EB font-size-12px" data-bs-dismiss="offcanvas">Cancel</button>
-                <button type="submit" name="add_offer" class="btn px-4 btn-E51A1A font-size-12px text-white shadow-sm">Publish Offer</button>
-            </div>
+                                <div class="mt-4  d-flex justify-content-end pb-2">
+                                    <button type="button" class="btn px-4 me-2 btn-E5E8EB font-size-12px" data-bs-dismiss="offcanvas">Cancel</button>
+                                    <button type="submit" name="add_offer" class="btn px-4 btn-E51A1A font-size-12px text-white shadow-sm">Publish Training Opportunity</button>
+                                </div>
 
-        </div>
-    </form>
-</div>
+                            </div>
+                        </form>
+                    </div>
                   </div>
                 </div>
                 <div class="d-flex mt-3">
@@ -279,7 +279,7 @@ $current_type_filter = htmlspecialchars($training_type_filter);
                                 class="form-control me-2 bg-color-f4f4f4 font-size-13px border-none" 
                                 type="text" 
                                 name="search"
-                                placeholder="Search Offer Title"
+                                placeholder="Search Training Opportunity Title"
                                 value="<?= $current_search ?>"
                             />
                             <input type="hidden" name="status_filter" value="<?= $current_status_filter ?>">
@@ -398,7 +398,7 @@ $current_type_filter = htmlspecialchars($training_type_filter);
                             <div class="offcanvas offcanvas-end width-600px" tabindex="-1" id="viewOffer<?= $offer['offer_id']; ?>" aria-labelledby="viewOfferLabel<?= $offer['offer_id']; ?>">
                                 <div class="offcanvas-header">
                                     <div class="d-flex flex-column px-4">
-                                        <label class="font-weight-600 font-size-22px">Offer Details</label>
+                                        <label class="font-weight-600 font-size-22px">Training Opportunity Details</label>
                                     </div>
                                 </div>
                                 <div class="offcanvas-body">
@@ -430,7 +430,7 @@ $current_type_filter = htmlspecialchars($training_type_filter);
                             <div class="offcanvas offcanvas-end width-600px" tabindex="-1" id="editOffer<?= $offer['offer_id']; ?>" aria-labelledby="editOfferLabel<?= $offer['offer_id']; ?>">
                                 <div class="offcanvas-header ">
                                     <div class="d-flex flex-column px-4">
-                                        <label class="font-weight-600 font-size-22px">Edit Internship Offer</label>
+                                        <label class="font-weight-600 font-size-22px">Edit Training Opportunity</label>
                                     </div>
                                 </div>
                                 
@@ -508,7 +508,7 @@ $current_type_filter = htmlspecialchars($training_type_filter);
                             </div>
                         <?php endwhile; ?>
                         <?php else: ?>
-                            <tr><td colspan="5" class="text-center py-4">No offers found matching your criteria.</td></tr>
+                            <tr><td colspan="5" class="text-center py-4">No Training Opportunities found matching your criteria.</td></tr>
                         <?php endif; ?>
                         
                         </tbody>

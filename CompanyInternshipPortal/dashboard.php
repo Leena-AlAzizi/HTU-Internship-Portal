@@ -98,7 +98,7 @@ $stmt->close();
                             <li class="nav-item">
                                 <a href="offers.php" class="btn w-100 text-start">
                                     <i class="bi  bi-briefcase"></i>
-                                    <label for="" class="ms-2">Offers</label>
+                                    <label for="" class="ms-2">Training Opportunities</label>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -145,14 +145,14 @@ $stmt->close();
                     </div>
                     <div class="col-md-6">
                         <div class="bg-color-f4f4f4 height-120px border-radius-10px padding-x-35px py-2 d-flex flex-column">
-                            <label for="" class="font-size-16px mt-3">Accepted Offers</label>
+                            <label for="" class="font-size-16px mt-3">Accepted Training Opportunities</label>
                             <label for="" class="font-weight-700 font-size-24px mt-1 color-876363">
                                 <?= htmlspecialchars($accepted_offers) ?>
                             </label>
                         </div>
                     </div>
                 </div>
-                <label for="" class="font-weight-600 font-size-14px mt-3">Potential Offers Status</label>
+                <label for="" class="font-weight-600 font-size-14px mt-3">Training opportunities Status</label>
                 <table class="table mb-0 font-size-12px border-radius-top-10px mt-3 ">
                     <thead class="bg-color-F5F0F0">
                         <tr>
@@ -216,7 +216,7 @@ $stmt->close();
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <tr>
-                                    <td colspan="4" class="text-center py-3 text-muted">No offers found.</td>
+                                    <td colspan="4" class="text-center py-3 text-muted">No Training Opportunities found.</td>
                                 </tr>
                             <?php endif; ?>
                         </tbody>

@@ -127,9 +127,18 @@ $current_search = htmlspecialchars($_GET['search'] ?? '');
                     </div>
 
                     <ul class="nav nav-pills mb-3 mt-4 border-bottom-color-876363" id="pills-tab" role="tablist">
-                        <li class="nav-item"><button class="nav-link <?= ($active_tab == 'pills-pending') ? 'active' : '' ?>" data-bs-toggle="pill" data-bs-target="#pills-pending" type="button">Pending</button></li>
-                        <li class="nav-item"><button class="nav-link <?= ($active_tab == 'pills-home') ? 'active' : '' ?>" data-bs-toggle="pill" data-bs-target="#pills-home" type="button">Open</button></li>
-                        <li class="nav-item"><button class="nav-link <?= ($active_tab == 'pills-profile') ? 'active' : '' ?>" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button">Expired</button></li>
+                        <li class="nav-item">
+                            <a class="nav-link <?= ($active_tab == 'pills-pending') ? 'active' : '' ?>" 
+                            href="?tab=pills-pending&search=<?= urlencode($search_term) ?>">Pending</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link <?= ($active_tab == 'pills-home') ? 'active' : '' ?>" 
+                            href="?tab=pills-home&search=<?= urlencode($search_term) ?>">Open</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link <?= ($active_tab == 'pills-profile') ? 'active' : '' ?>" 
+                            href="?tab=pills-profile&search=<?= urlencode($search_term) ?>">Expired</a>
+                        </li>
                     </ul>
 
                     <div class="tab-content">

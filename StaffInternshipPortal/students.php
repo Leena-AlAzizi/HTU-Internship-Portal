@@ -230,12 +230,17 @@ $filter_separator = !empty($current_filters) ? '&' : '';
                                     <i class="bi bi-search color-876363 font-size-13px"></i>
                                 </button>
                                 <input 
-                                    class="form-control me-2 bg-color-F5F0F0 font-size-13px border-none" 
+                                    class="form-control me-2 bg-color-F5F0F0 font-size-13px border-none shadow-none" 
                                     type="text" 
                                     name="search"
-                                    placeholder="Search Student Name"
-                                    value="<?= $_GET['search'] ?? '' ?>"
+                                    placeholder="Search Student"
+                                    value="<?= htmlspecialchars($_GET['search'] ?? '') ?>"
                                 />
+                                <input type="hidden" name="tab" value="<?= $active_tab ?>">
+                                
+                                <input type="hidden" name="department" value="<?= htmlspecialchars($_GET['department'] ?? '') ?>">
+                                <input type="hidden" name="major" value="<?= htmlspecialchars($_GET['major'] ?? '') ?>">
+                                <input type="hidden" name="year" value="<?= htmlspecialchars($_GET['year'] ?? '') ?>">
                             </form>
                             <div class="position-relative">
 
@@ -252,28 +257,28 @@ $filter_separator = !empty($current_filters) ? '&' : '';
                                     <form method="GET">
 
                                         <label class="font-size-13px mb-1">Department</label>
-                                        <select name="department" class="form-select font-size-13px mb-3">
-                                            <option value="">All</option>
+                                        <select name="department" id="departmentSelect" class="form-select font-size-13px mb-3">
+                                            <option value="">All Departments</option>
                                             <?php
                                             $departments_query = "SELECT * FROM departments";
                                             $departments_result = mysqli_query($conn, $departments_query);
                                             while($dep = mysqli_fetch_assoc($departments_result)) { ?>
-                                                <option class="" value="<?= $dep['department_id'] ?>"
-                                                    <?= (isset($_GET['department']) && $_GET['department'] == $dep['department_id']) ? 'selected' : '' ?>>
+                                                <option value="<?= $dep['department_id'] ?>" <?= (isset($_GET['department']) && $_GET['department'] == $dep['department_id']) ? 'selected' : '' ?>>
                                                     <?= $dep['department_name'] ?>
                                                 </option>
                                             <?php } ?>
                                         </select>
 
                                         <label class="font-size-13px mb-1">Major</label>
-                                        <select name="major" class="form-select font-size-13px mb-3">
-                                            <option value="">All</option>
+                                        <select name="major" id="majorSelect" class="form-select font-size-13px mb-3">
+                                            <option value="">All Majors</option>
                                             <?php
                                             $majors_query = "SELECT * FROM majors";
                                             $majors_result = mysqli_query($conn, $majors_query);
                                             while($maj = mysqli_fetch_assoc($majors_result)) { ?>
-                                                <option value="<?= $maj['major_id'] ?>"
-                                                    <?= (isset($_GET['major']) && $_GET['major'] == $maj['major_id']) ? 'selected' : '' ?>>
+                                                <option value="<?= $maj['major_id'] ?>" 
+                                                        data-dept="<?= $maj['department_id'] ?>"
+                                                        <?= (isset($_GET['major']) && $_GET['major'] == $maj['major_id']) ? 'selected' : '' ?>>
                                                     <?= $maj['major_name'] ?>
                                                 </option>
                                             <?php } ?>
@@ -301,19 +306,19 @@ $filter_separator = !empty($current_filters) ? '&' : '';
 
                         </div>
                 <ul class="nav nav-pills mb-3 mt-4 border-bottom-color-876363" id="pills-tab" role="tablist">
-                    <li class="nav-item" role="presentation">
+                    <li class="nav-item">
                         <a href="?tab=not_offered<?= $filter_separator . $current_filters ?>" 
                         class="nav-link <?= ($active_tab == 'not_offered') ? 'active' : '' ?>">
                         Not Offered Students
                         </a>
                     </li>
-                    <li class="nav-item" role="presentation">
+                    <li class="nav-item">
                         <a href="?tab=in_process<?= $filter_separator . $current_filters ?>" 
                         class="nav-link <?= ($active_tab == 'in_process') ? 'active' : '' ?>">
                         In Process Students
                         </a>
                     </li>
-                    <li class="nav-item" role="presentation">
+                    <li class="nav-item">
                         <a href="?tab=offered<?= $filter_separator . $current_filters ?>" 
                         class="nav-link <?= ($active_tab == 'offered') ? 'active' : '' ?>">
                         Offered Students
@@ -321,7 +326,7 @@ $filter_separator = !empty($current_filters) ? '&' : '';
                     </li>
                 </ul>
                 <div class="tab-content" id="pills-tabContent">
-                    <div class="tab-pane fade <?= ($active_tab == 'offered') ? 'show active' : '' ?>" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
+                    <div class="tab-pane fade <?= ($active_tab == 'offered') ? 'show active' : '' ?>" id="pills-home">
                         
                         <table class="table mb-0 font-size-12px border-radius-top-10px mt-2">
                             <thead class="bg-color-F5F0F0">
@@ -437,7 +442,7 @@ $filter_separator = !empty($current_filters) ? '&' : '';
                             </table>
                         </div>
                     </div>
-                    <div class="tab-pane fade <?= ($active_tab == 'not_offered') ? 'show active' : '' ?>" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+                    <div class="tab-pane fade <?= ($active_tab == 'not_offered') ? 'show active' : '' ?>" id="pills-profile">
                         <table class="table mb-0 font-size-12px border-radius-top-10px mt-2 tablehead">
                             <thead class="bg-color-F5F0F0">
                                 <tr>
@@ -551,7 +556,7 @@ $filter_separator = !empty($current_filters) ? '&' : '';
                             </table>
                         </div>
                     </div>
-                    <div class="tab-pane fade <?= ($active_tab == 'in_process') ? 'show active' : '' ?>" id="pills-process" role="tabpanel" aria-labelledby="pills-process-tab" tabindex="0">
+                    <div class="tab-pane fade <?= ($active_tab == 'in_process') ? 'show active' : '' ?>" id="pills-process">
                         <table class="table mb-0 font-size-12px border-radius-top-10px mt-2 tablehead">
                             <thead class="bg-color-F5F0F0">
                                 <tr>
@@ -691,5 +696,34 @@ $filter_separator = !empty($current_filters) ? '&' : '';
             box.style.display = 'none';
         }
     });
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const deptSelect = document.getElementById('departmentSelect');
+    const majorSelect = document.getElementById('majorSelect');
+    const allMajors = Array.from(majorSelect.options);
+
+    function filterMajors() {
+        const selectedDept = deptSelect.value;
+        
+        majorSelect.innerHTML = '';
+        
+        majorSelect.appendChild(allMajors[0]);
+
+        allMajors.forEach((option, index) => {
+            if (index === 0) return; 
+
+            if (selectedDept === "" || option.getAttribute('data-dept') === selectedDept) {
+                majorSelect.appendChild(option);
+            }
+        });
+    }
+
+    deptSelect.addEventListener('change', filterMajors);
+    
+    if(deptSelect.value !== "") {
+        filterMajors();
+    }
+});
 </script>
 </html>

@@ -15,7 +15,7 @@ if (isset($_GET['id']) && isset($_GET['status'])) {
 
     if (mysqli_query($conn, $sql)) {
         echo "<script>
-                alert('Company status updated to $new_status');
+                
                 window.location.href = 'companies.php?status=$new_status';
               </script>";
     } else {

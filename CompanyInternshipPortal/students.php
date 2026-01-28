@@ -118,6 +118,8 @@ if ($stmt_nf) {
 
 $current_filters_except_tab = http_build_query(array_filter($_GET, fn($key) => $key !== 'tab', ARRAY_FILTER_USE_KEY));
 $link_separator = !empty($current_filters_except_tab) ? '&' : '';
+
+$active_tab = $_GET['tab'] ?? 'offered';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -162,7 +164,7 @@ $link_separator = !empty($current_filters_except_tab) ? '&' : '';
                             <li class="nav-item">
                                 <a href="offers.php" class="btn w-100 text-start">
                                     <i class="bi  bi-briefcase"></i>
-                                    <label for="" class="ms-2">Offers</label>
+                                    <label for="" class="ms-2">Training Opportunities</label>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -261,18 +263,21 @@ $link_separator = !empty($current_filters_except_tab) ? '&' : '';
                     </div>
                 </div>
                 <ul class="nav nav-pills mb-3 mt-4 border-bottom-color-876363" id="pills-tab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Offered Students</button>
+                    <li class="nav-item">
+                        <a class="nav-link <?= ($active_tab == 'offered') ? 'active' : '' ?>" 
+                        href="?tab=offered<?= $link_separator . $current_filters_except_tab ?>">Offered Students</a>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">In-Process Students</button>
+                    <li class="nav-item">
+                        <a class="nav-link <?= ($active_tab == 'in_process') ? 'active' : '' ?>" 
+                        href="?tab=in_process<?= $link_separator . $current_filters_except_tab ?>">In-Process Students</a>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-look" type="button" role="tab" aria-controls="pills-look" aria-selected="false">Looking for Offer</button>
+                    <li class="nav-item">
+                        <a class="nav-link <?= ($active_tab == 'looking') ? 'active' : '' ?>" 
+                        href="?tab=looking<?= $link_separator . $current_filters_except_tab ?>">Looking for Training Opportunity</a>
                     </li>
                 </ul>
                 <div class="tab-content" id="pills-tabContent">
-                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
+                    <div class="tab-pane fade <?= ($active_tab == 'offered') ? 'show active' : '' ?>" id="pills-home" role="tabpanel">
                         <table class="table mb-0 font-size-12px border-radius-top-10px mt-4 tablehead">
                             <thead>
                                 <tr class="bg-color-F5F0F0">
@@ -280,7 +285,7 @@ $link_separator = !empty($current_filters_except_tab) ? '&' : '';
                                         <div class="px-3">Name</div>
                                     </th>
                                     <th class="width-30per">
-                                        <div class="px-3">Offer Title</div>
+                                        <div class="px-3">Training Opportunity Title</div>
                                     </th>
                                     <th class="width-25per">                                            
                                         <div class="px-3">Major</div>
@@ -385,7 +390,7 @@ $link_separator = !empty($current_filters_except_tab) ? '&' : '';
                             </table>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+                    <div class="tab-pane fade <?= ($active_tab == 'in_process') ? 'show active' : '' ?>" id="pills-profile" role="tabpanel">
                         <table class="table mb-0 font-size-12px border-radius-top-10px mt-4 tablehead">
                             <thead class="bg-color-F5F0F0">
                                 <tr>
@@ -516,7 +521,7 @@ $link_separator = !empty($current_filters_except_tab) ? '&' : '';
                         </div>
                         <?php endwhile; ?>
                     </div>
-                    <div class="tab-pane fade" id="pills-look" role="tabpanel" aria-labelledby="pills-look-tab" tabindex="0">
+                    <div class="tab-pane fade <?= ($active_tab == 'looking') ? 'show active' : '' ?>" id="pills-look" role="tabpanel">
                         <table class="table mb-0 font-size-12px border-radius-top-10px mt-4 tablehead">
                             <thead class="bg-color-F5F0F0">
                                 <tr>
@@ -635,57 +640,34 @@ $link_separator = !empty($current_filters_except_tab) ? '&' : '';
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="my-2 mt-3 d-flex justify-content-end">
-                                                        <button type="button" class="btn px-3 me-3 btn-E5E8EB font-size-12px" data-bs-dismiss="offcanvas">
-                                                            Cancel
-                                                        </button>
-
-                                                        <button type="button" class="btn px-3 btn-E51A1A font-size-12px"
-                                                                data-bs-toggle="modal" data-bs-target="#<?= $modalId ?>">
-                                                            Send them an Offer
-                                                        </button>
-                                                    </div>
-                                                    
-                                                    <div class="modal fade" id="<?= $modalId ?>" tabindex="-1">
-                                                        <div class="modal-dialog modal-dialog-centered">
-                                                            <div class="modal-content shadow-box border-none">
-
-                                                                <div class="modal-header border-none py-2">
-                                                                    <label class="modal-title">
-                                                                        Send Internship Offer to 
-                                                                        <span class="font-weight-500 color-876363"><?= $fullName ?></span>
-                                                                    </label>
-                                                                    <button type="button" class="btn" data-bs-dismiss="modal">
-                                                                        <i class="bi bi-x"></i>
-                                                                    </button>
-                                                                </div>
-
-                                                                <form action="send_offer.php" method="POST">
-                                                                    <input type="hidden" name="student_id" value="<?= $row['student_id'] ?>">
-
-                                                                    <div class="modal-body">
-                                                                        <select name="offer_id" class="form-select font-size-12px">
-                                                                            <option selected>Select</option>
-
-                                                                            <?php 
-                                                                            $offers = $conn->query("SELECT offer_id, job_title FROM offers WHERE company_id = $company_id AND status = 'Open'");
-                                                                            while ($o = $offers->fetch_assoc()):
-                                                                            ?>
-                                                                                <option value="<?= $o['offer_id'] ?>">
-                                                                                    <?= $o['job_title'] ?>
-                                                                                </option>
-                                                                            <?php endwhile; ?>
-                                                                        </select>
-                                                                    </div>
-
-                                                                    <div class="modal-footer border-none">
-                                                                        <button type="button" class="btn btn-E5E8EB font-size-12px" data-bs-dismiss="modal">Cancel</button>
-                                                                        <button type="submit" class="btn btn-E51A1A font-size-12px">Send</button>
-                                                                    </div>
-                                                                </form>
-
+                                                    <div class="row mx-2 px-3 pt-2 pb-4 mt-4 bg-color-f4f4f4 border-radius-10px">
+                                                        <label for="" class="font-size-12px color-5f5f5f my-2">Send a Training Opportunity</label>
+                                                        
+                                                        <form action="send_offer.php" method="POST" class="d-flex flex-column gap-2">
+                                                            <input type="hidden" name="student_id" value="<?= $row['student_id'] ?>">
+                                                            
+                                                            <div class="">
+                                                                <select name="offer_id" class="form-select font-size-12px shadow-none" required>
+                                                                    <option value="" disabled selected>Select an open Training Opportunity</option>
+                                                                    <?php 
+                                                                    $offers = $conn->query("SELECT offer_id, job_title FROM offers WHERE company_id = $company_id AND status = 'Open'AND offer_id NOT IN (SELECT offer_id FROM applications  WHERE student_id = {$row['student_id']} )");
+                                                                    if ($offers && $offers->num_rows > 0) {
+                                                                        while ($o = $offers->fetch_assoc()) {
+                                                                            echo "<option value='{$o['offer_id']}'>".htmlspecialchars($o['job_title'])."</option>";
+                                                                        }
+                                                                    }
+                                                                    ?>
+                                                                </select>
+                                                                
+                                                                <button type="submit" class="btn btn-E51A1A font-size-12px mt-3">
+                                                                    Send Training Opportunity
+                                                                </button>
                                                             </div>
-                                                        </div>
+                                                            
+                                                            <?php if ($offers->num_rows == 0): ?>
+                                                                <small class="text-danger font-size-11px mt-1">No open Training Opportunities available. Please create one first.</small>
+                                                            <?php endif; ?>
+                                                        </form>
                                                     </div>
                                                 </div>
                         </div>

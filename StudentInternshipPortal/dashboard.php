@@ -12,12 +12,39 @@ $student_id = $_SESSION['student_id'];
 
 //Phase 1: Fetch Student Profile Information
 
-$stmt = $conn->prepare("SELECT first_name, last_name, profile_image FROM students WHERE student_id = ?");
+$stmt = $conn->prepare("
+    SELECT first_name, last_name, profile_image, status 
+    FROM students 
+    WHERE student_id = ?
+");
 $stmt->bind_param("s", $student_id);
 $stmt->execute();
 $result = $stmt->get_result();
 $student = $result->fetch_assoc();
 $stmt->close();
+
+
+// Determine color and friendly text based on student status
+$statusColor = '#000'; // default
+$statusText = 'Status not set'; // default text
+
+if (!empty($student['status'])) {
+    switch ($student['status']) {
+        case 'Found Opportunity':
+            $statusColor = '#006b04'; // green
+            $statusText = '<i class="bi bi-award-fill me-2"></i>Congratulations! You have found an internship opportunity.';
+            break;
+        case 'Interviewing':
+            $statusColor = '#c19103'; // yellow
+            $statusText = '<i class="bi bi-file-person me-2"></i>You are currently in the interviewing phase. Good luck!';
+            break;
+        case 'Not Found':
+            $statusColor = '#B80000'; // red
+            $statusText = '<i class="bi bi-binoculars-fill me-2"></i>You are currently looking for an internship opportunity.';
+            break;
+    }
+}
+
 
 // Centralized Assets Paths
 $upload_path = "../uploads/";
@@ -42,16 +69,11 @@ if ($row = $result_deadline->fetch_assoc()) {
 }
 $stmt_deadline->close();
 
-// Phase 3: Fetch Student's Internship Applications
-
+// Phase 3: Fetch Student's Internship Applications (Internal)
 $query = "
     SELECT 
-        o.job_title,
-        o.training_type,
-        o.location,
-        c.company_name,
-        a.status,
-        a.application_date
+        o.job_title, o.training_type, o.location, 
+        c.company_name, a.status, a.application_date
     FROM applications a
     JOIN offers o ON a.offer_id = o.offer_id
     JOIN companies c ON o.company_id = c.company_id
@@ -59,11 +81,28 @@ $query = "
     ORDER BY a.application_date DESC
 ";
 
-$stmt = $conn->prepare($query);
-$stmt->bind_param("s", $student_id);
-$stmt->execute();
-$applications = $stmt->get_result();
+$stmt_internal = $conn->prepare($query);
+$stmt_internal->bind_param("s", $student_id);
+$stmt_internal->execute();
+$applications = $stmt_internal->get_result(); 
+$stmt_internal->close();
+
+// Phase 4: Fetch Student's External Offers Status
+$query_external = "
+    SELECT 
+        company_name, position_title, status, created_at
+    FROM external_offers
+    WHERE student_id = ?
+    ORDER BY created_at DESC
+";
+
+$stmt_external = $conn->prepare($query_external);
+$stmt_external->bind_param("s", $student_id);
+$stmt_external->execute();
+$external_offers = $stmt_external->get_result(); 
+$stmt_external->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en" class="h-100">
@@ -138,11 +177,17 @@ $applications = $stmt->get_result();
                 <?php if ($student_deadline): 
                         $deadline_formatted = date('F jS, Y', strtotime($student_deadline));
                     ?>
-                        <div class="bg-color-F5F0F0  mt-3 mb-0 px-4 py-4 font-size-13px border-radius-8px" role="alert">
+                        <div class="bg-color-F5F0F0 mt-3 mb-0 px-4 py-4 font-size-13px border-radius-8px" 
+                        role="alert">
                             <i class="bi bi-clock-history me-1"></i>
                             <label for="">The deadline for finding an opportunity this semester : </label>
                             <strong class="color-B80000"><?= htmlspecialchars($deadline_formatted) ?></strong>
                         </div>
+                        <div class="bg-color-F5F0F0 mt-3 mb-0 px-4 py-4 font-size-13px border-radius-8px" role="alert">
+                            <strong class="ms-1" style="color: <?= $statusColor ?>;">
+                                <?= $statusText ?> </strong>
+                        </div>
+
                     <?php endif; ?>
                 <label for="" class="font-weight-600 font-size-14px mt-3">Potential Offers Status</label>
                 <table class="table mb-0 font-size-12px border-radius-top-10px mt-3">
@@ -216,6 +261,47 @@ $applications = $stmt->get_result();
                                 <tr>
                                     <td colspan="4" class="text-center py-3">No applications yet</td>
                                 </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+                <label for="" class="font-weight-600 font-size-14px mt-3">External Offers Status</label>
+                <table class="table mb-0 font-size-12px border-radius-top-10px mt-3">
+                    <thead>
+                        <tr>
+                            <th class="width-25per">Company</th>
+                            <th class="width-25per">Position</th>
+                            <th class="width-25per">Approval Status</th>
+                            <th class="width-25per">Date Submitted</th>
+                        </tr>
+                    </thead>
+                </table>
+                <div class="scroll-y-axis max-h-300px">
+                    <table class="table tablebody font-size-13px">
+                        <tbody>
+                            <?php if ($external_offers->num_rows > 0): ?>
+                                <?php while ($ext = $external_offers->fetch_assoc()): 
+                                    $extBg = '#F5F0F0'; $extCol = '#000';
+                                    switch ($ext['status']) {
+                                        case 'Pending':  $extBg = '#fef2cfff'; $extCol = '#c19103ff'; break;
+                                        case 'Accepted': $extBg = '#C8E6C9'; $extCol = '#006b04ff'; break;
+                                        case 'Rejected': $extBg = '#FFCDD2'; $extCol = '#73000cff'; break;
+                                    }
+                                ?>
+                                    <tr>
+                                        <td class="width-25per"><div class="px-3"><?= htmlspecialchars($ext['company_name']) ?></div></td>
+                                        <td class="width-25per"><div class="px-3"><?= htmlspecialchars($ext['position_title']) ?></div></td>
+                                        <td class="width-25per">
+                                            <div class="px-3 py-1 d-flex justify-content-center width-fit border-radius-10px font-weight-600"
+                                                style="background-color: <?= $extBg ?>; color: <?= $extCol ?>;">
+                                                <?= htmlspecialchars($ext['status']) ?>
+                                            </div>
+                                        </td>
+                                        <td class="width-25per"><div class="px-3"><?= date("M d, Y", strtotime($ext['created_at'])) ?></div></td>
+                                    </tr>
+                                <?php endwhile; ?>
+                            <?php else: ?>
+                                <tr><td colspan="4" class="text-center py-3">No external offers submitted yet</td></tr>
                             <?php endif; ?>
                         </tbody>
                     </table>
