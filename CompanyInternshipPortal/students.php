@@ -510,12 +510,20 @@ $active_tab = $_GET['tab'] ?? 'offered';
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="my-2 mt-4 d-flex justify-content-end">
-                                                        <a href="reject.php?id=<?= $row['application_id'] ?>" 
-                                                        class="btn px-3 me-3 btn-E5E8EB font-size-12px">Reject</a>
+                                                    <div class="my-2 mt-4 d-flex justify-content-end align-items-center">
+                                                        <?php if ($row['status'] === 'Interview'): ?>
+                                                            <a href="reject.php?id=<?= $row['application_id'] ?>" 
+                                                            class="btn px-3 me-3 btn-E5E8EB font-size-12px"
+                                                            onclick="return confirm('Are you sure you want to reject this student?')">Reject Student</a>
 
-                                                        <a href="accept.php?id=<?= $row['application_id'] ?>" 
-                                                        class="btn px-3 btn-E51A1A font-size-12px">Accept</a>
+                                                            <a href="accept.php?id=<?= $row['application_id'] ?>" 
+                                                            class="btn px-3 btn-E51A1A font-size-12px text-white">Accept Student</a>
+                                                        <?php else: ?>
+                                                            <div class="color-5f5f5f font-size-12px ">
+                                                                <i class="bi bi-hourglass-split me-1"></i>
+                                                                Waiting for the student's response ...
+                                                            </div>
+                                                        <?php endif; ?>
                                                     </div>
                                                 </div>
                         </div>
